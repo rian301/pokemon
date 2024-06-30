@@ -1,0 +1,107 @@
+<div class="container mx-auto p-4">
+  <h1 class="text-2xl font-bold mb-4 text-white">
+    {{ isEditMode ? "Editar Deck" : "Criar Deck" }}
+  </h1>
+  <form (ngSubmit)="saveDeck()" class="space-y-4">
+    <div>
+      <label for="deckName" class="block text-sm font-medium text-white"
+        >Deck</label
+      >
+      <input
+        type="text"
+        id="deckName"
+        [(ngModel)]="deck.name"
+        name="deckName"
+        required
+        class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+        placeholder="Nome do deck"
+      />
+    </div>
+
+    <div>
+      <label for="cardName" class="block text-sm font-medium text-white"
+        >Add Carta</label
+      >
+      <div class="flex space-x-2">
+        <input
+          type="text"
+          id="cardName"
+          [(ngModel)]="cardName"
+          name="cardName"
+          list="allCardsList"
+          class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+          placeholder="Nome da carta"
+        />
+        <datalist id="allCardsList">
+          <option *ngFor="let card of allCards" [value]="card.name"></option>
+        </datalist>
+        <button
+          type="button"
+          (click)="addCard()"
+          class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          Add
+        </button>
+      </div>
+    </div>
+
+    <div>
+      <h2 class="text-lg font-medium text-white mb-2">Cartas do Deck: {{deck.cards.length}}</h2>
+      <ul class="space-y-2">
+        <li
+          *ngFor="let card of deck.cards; let i = index"
+          class="flex justify-between items-center p-2 border border-gray-300 rounded-md shadow-sm"
+        >
+          <div class="relative">
+            <img
+              [src]="card.imageUrl"
+              alt="{{ card.name }}"
+              class="w-12 h-12 rounded-lg cursor-pointer"
+              (mouseover)="showImage(card.imageUrl)"
+              (mouseleave)="hideImage()"
+            />
+          </div>
+          <span class="text-white">{{ card.name }} ({{ card.supertype }})</span>
+          <button
+            type="button"
+            (click)="removeCard(i)"
+            class="inline-flex items-center px-2 py-1 border border-transparent text-xs leading-4 font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+          >
+            Remover
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <div class="flex justify-end space-x-2">
+      <button
+        type="button"
+        routerLink="/"
+        class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+      >
+        Cancelar
+      </button>
+      <button
+      (click)="saveDeck()"
+        type="submit"
+        class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+      >
+        Salvar Deck
+      </button>
+    </div>
+  </form>
+
+  <div class="overlay" (click)="hideImage()">
+    <img [src]="largeImageUrl" alt="Large Image" />
+  </div>
+
+  <!-- Alerta de Confirmação -->
+  <app-confirmation-alert
+    *ngIf="showAlert"
+    (confirm)="showConfirmation()"
+    (cancel)="hideConfirmation()"
+    title="Atenção"
+    [message]= "message"
+    [isAction]="false"
+  ></app-confirmation-alert>
+</div>

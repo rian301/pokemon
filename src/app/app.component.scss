@@ -1,0 +1,17 @@
+
+$background-image-path: '../assets/images/background.jpg';
+$font-family: 'Roboto', sans-serif;
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: $font-family;
+}
+
+.image {
+  background-image: url($background-image-path);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}

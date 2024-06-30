@@ -1,0 +1,53 @@
+<div class="flex items-center justify-center h-screen bg-cover bg-center">
+  <div class="bg-white bg-opacity-50 p-6 rounded-lg shadow-md">
+    <h2 class="text-2xl font-bold mb-6 text-black">Detalhes do Baralho</h2>
+
+    <div class="mb-4">
+      <p class="font-semibold text-black">Nome do Baralho: {{ deck?.name }}</p>
+    </div>
+
+    <div class="mb-4">
+      <p class="font-semibold text-black">
+        Número de Cartas: {{ deck?.cards.length }}
+      </p>
+    </div>
+
+    <div class="mb-4">
+      <p class="font-semibold text-black">Tipos Únicos: {{ uniqueTypes }}</p>
+    </div>
+
+    <div class="mb-4">
+      <p class="font-semibold text-black">Supertipos: {{ superTypes }}</p>
+    </div>
+
+    <div class="flex justify-end">
+      <button
+        (click)="back()"
+        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 mr-2 rounded"
+      >
+        Voltar
+      </button>
+      <button
+        (click)="editDeck(deck.id)"
+        class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2"
+      >
+        Editar
+      </button>
+      <button
+        (click)="showConfirmation(deck.id)"
+        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+      >
+        Deletar
+      </button>
+    </div>
+  </div>
+
+  <!-- Alerta de Confirmação -->
+  <app-confirmation-alert
+    *ngIf="showAlert"
+    (confirm)="deleteDeck(confirmId)"
+    (cancel)="hideConfirmation()"
+    title="Confirmação"
+    message="Tem certeza que deseja apagar o Deck?"
+  ></app-confirmation-alert>
+</div>
