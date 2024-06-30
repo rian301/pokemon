@@ -1,0 +1,20 @@
+<div class="flex flex-col min-h-screen image">
+  <header class="bg-gray-800 text-white py-4 flex justify-between items-center">
+    <div class="container mx-auto flex justify-between items-center px-4">
+      <h1 class="text-2xl font-bold">Pokemon TCG Deck Builder</h1>
+    </div>
+    <div>
+      <a class="px-4" (click)="logout()">Sair</a>
+    </div>
+  </header>
+
+  <main class="container mx-auto mt-4 flex-1">
+    <router-outlet></router-outlet>
+  </main>
+
+  <footer class="bg-gray-800 text-white py-4">
+    <div class="container mx-auto text-center">
+      <p>&copy; 2024 Pokemon TCG Deck Builder. All rights reserved.</p>
+    </div>
+  </footer>
+</div>

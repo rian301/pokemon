@@ -1,0 +1,15 @@
+$background-image-path: '../../../assets/images/background.jpg';
+.image {
+    background-image: url($background-image-path);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+  
+  header {
+    a {
+      text-decoration: none;
+      cursor: pointer;
+    }
+  }

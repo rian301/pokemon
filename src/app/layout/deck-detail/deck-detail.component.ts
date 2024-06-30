@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Deck } from '../interfaces/deck';
-import { DeckService } from '../services/deck-service';
+import { Deck } from '../../interfaces/deck';
+import { DeckService } from '../../services/deck/deck-service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-deck-detail',
@@ -28,7 +29,8 @@ export class DeckDetailComponent implements OnInit {
   getDeck(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.deck = this.deckService.getDeckById(Number(id));
+      this.deckService.getDeckById(Number(id))
+      .pipe(take(1)).subscribe(res => this.deck = res);
       if (this.deck) {
         this.calculateUniqueTypes();
         this.calculateSuperTypes();
@@ -63,11 +65,11 @@ export class DeckDetailComponent implements OnInit {
   }
 
   back(){
-    this.router.navigate(['/'])
+    this.router.navigate(['/layout'])
   }
 
   editDeck(id: number) {
-    this.router.navigate([`/edit-deck/${id}`])
+    this.router.navigate([`/layout/edit-deck/${id}`])
   }
 
   showConfirmation(id: number) {
@@ -81,8 +83,8 @@ export class DeckDetailComponent implements OnInit {
   }
 
   deleteDeck(id: number) {
-   this.deckService.removeDeck(id);
-   this.hideConfirmation();
-   this.router.navigate(['/'])
+  //  this.deckService.removeDeck(id);
+  //  this.hideConfirmation();
+  //  this.router.navigate(['/layout'])
  }
 }

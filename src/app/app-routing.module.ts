@@ -1,14 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DeckListComponent } from './deck-list/deck-list.component';
-import { DeckDetailComponent } from './deck-detail/deck-detail.component';
-import { DeckFormComponent } from './deck-form/deck-form.component';
+import { authGuard } from './guards/auth-guard.service';
 
 const routes: Routes = [
-  { path: '', component: DeckListComponent },
-  { path: 'deck/:id', component: DeckDetailComponent },
-  { path: 'create-deck', component: DeckFormComponent },
-  { path: 'edit-deck/:id', component: DeckFormComponent },
+  { path: '', redirectTo: 'layout', pathMatch: 'full' },
+  { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
+  { path: 'layout', canActivate: [authGuard], loadChildren: () => import('./layout/layout.module').then(m => m.LayoutModule) },
   { path: '**', redirectTo: '' }
 ];
 

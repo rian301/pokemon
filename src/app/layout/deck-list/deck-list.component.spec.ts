@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DeckListComponent } from './deck-list.component';
 import { of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
-import { DeckService } from '../services/deck-service';
+import { DeckService } from '../../services/deck/deck-service';
 
 describe('DeckListComponent', () => {
   let component: DeckListComponent;

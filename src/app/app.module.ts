@@ -1,31 +1,33 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DeckListComponent } from './deck-list/deck-list.component';
-import { DeckDetailComponent } from './deck-detail/deck-detail.component';
-import { DeckFormComponent } from './deck-form/deck-form.component';
-import { DeckService } from './services/deck-service';
-import { ConfirmationAlertComponent } from './shared/components/confirmation/confirmation-alert.component';
+import { DeckService } from './services/deck/deck-service';
+import { AngularFireModule } from "@angular/fire/compat";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDAxGIB3vSYa54nDmmOEd-uWkiAfDLYfK0",
+  authDomain: "pokemon-2305d.firebaseapp.com",
+  projectId: "pokemon-2305d",
+  storageBucket: "pokemon-2305d.appspot.com",
+  messagingSenderId: "782993807202",
+  appId: "1:782993807202:web:6fa35e77117d56a4b07e3b",
+  measurementId: "G-S5FWNN98BB"
+};
 
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
-    DeckListComponent,
-    DeckDetailComponent,
-    DeckFormComponent,
-    ConfirmationAlertComponent
-  ],
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    AngularFireModule.initializeApp(firebaseConfig)
     // IgxButtonModule
   ],
   providers: [DeckService],

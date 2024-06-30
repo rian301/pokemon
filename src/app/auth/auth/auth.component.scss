@@ -1,0 +1,65 @@
+$background-image-path: '../../../assets/images/login-image.jpg';
+.content {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    justify-content: space-between;
+    .image {
+        width: 60%;
+        background-image: url($background-image-path);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    .form {
+        text-align: center;
+        width: 40%;
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            h1 {
+                font-size: 1.8rem;
+                border-bottom: 1px solid black;
+                display: inline;
+                margin-bottom: 3rem;
+            }
+
+            .google-login {
+                padding: 0.5rem 1.25rem;
+                box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.171);
+                width: 300px;
+                max-width: 100%;
+                border-radius: 1rem;
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                transition: 0.5s;
+                &:hover {
+                    background-color: rgba(0, 0, 0, 0.062);
+                }
+                img {
+                    margin-left: 1rem;
+                    width: 50px;
+                    height: 50px;
+                }
+            }
+        }
+    }
+}
+
+@media(max-width:768px) {
+    .content {
+        flex-direction: column;
+        justify-content: start;
+        .form, .image {
+            width: 100%;
+        }
+        .image {
+            height: 300px;
+            margin-bottom: 2rem;
+        }
+    }
+}

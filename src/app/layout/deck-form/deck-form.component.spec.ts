@@ -1,11 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DeckFormComponent } from './deck-form.component';
-import { DeckService } from '../services/deck-service';
+import { DeckService } from '../../services/deck/deck-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
 import { FormsModule } from '@angular/forms';
-import { Card } from '../interfaces/card';
+import { Card } from '../../interfaces/card';
 
 describe('DeckFormComponent', () => {
   let component: DeckFormComponent;

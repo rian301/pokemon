@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Card } from '../interfaces/card';
-import { DeckService } from '../services/deck-service';
+import { Card } from '../../interfaces/card';
+import { DeckService } from '../../services/deck/deck-service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-deck-form',
@@ -10,7 +11,7 @@ import { DeckService } from '../services/deck-service';
   styleUrls: ['./deck-form.component.scss']
 })
 export class DeckFormComponent implements OnInit {
-  deck = { id: 0, name: '', cards: [] as Card[] };
+  deck = { id: 0, name: '', cards: [] as Card[], uid: '', userId: '' };
   allCards: Card[] = [];
   cardName = '';
   cardCount = 1;
@@ -29,11 +30,13 @@ export class DeckFormComponent implements OnInit {
   ngOnInit(): void {
     const deckId = +this.route.snapshot.paramMap.get('id')!;
     if (deckId) {
-      const deck = this.deckService.getDeckById(deckId);
-      if (deck) {
-        this.deck = { ...deck };
-        this.isEditMode = true;
-      }
+      this.deckService.getDeckById(deckId)
+      .pipe(take(1)).subscribe(res => {
+        if (res) {
+          this.deck = res;
+          this.isEditMode = true;
+        }
+      });
     }
 
     this.deckService.getCards().subscribe(response => {
@@ -71,8 +74,8 @@ export class DeckFormComponent implements OnInit {
     this.showAlert = false;
   }
 
-  saveDeck() {
-    if (this.deck.cards.length < 24 || this.deck.cards.length > 60) {
+  async saveDeck() {
+    if (this.deck.cards.length < 2 || this.deck.cards.length > 60) {
       this.message = 'O Deck deve ter entre 24 e 60 cartas.'
       this.showConfirmation();
       return;
@@ -83,10 +86,11 @@ export class DeckFormComponent implements OnInit {
       return;
     }
     if (this.isEditMode) {
-      this.deckService.updateDeck(this.deck);
+      await this.deckService.updateDeck(this.deck, this.deck?.uid);
+      this.router.navigate(['/layout']);
     } else {
-      this.deckService.addDeck(this.deck);
-      this.router.navigate(['/']);
+      await this.deckService.addDeck(this.deck);
+      this.router.navigate(['/layout']);
     }
   }
 

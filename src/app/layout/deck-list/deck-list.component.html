@@ -14,17 +14,17 @@
 
             <div class="flex justify-end space-x-2">
               <a
-                routerLink="/deck/{{ deck.id }}"
+                routerLink="/layout/deck/{{ deck.id }}"
                 class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                 >Ver</a
               >
               <a
-                routerLink="/edit-deck/{{ deck.id }}"
+                routerLink="/layout/edit-deck/{{ deck.id }}"
                 class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
                 >Editar</a
               >
               <button
-                (click)="showConfirmation(deck.id)"
+                (click)="showConfirmation(deck.uid)"
                 class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
               >
                 Deletar
@@ -44,7 +44,7 @@
     </div>
 
     <button
-      routerLink="/create-deck"
+      routerLink="/layout/create-deck"
       class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-6"
     >
       Criar Novo Deck

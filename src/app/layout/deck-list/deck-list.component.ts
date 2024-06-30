@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DeckService } from '../services/deck-service';
-import { Deck } from '../interfaces/deck';
-import { map, Observable } from 'rxjs';
+import { DeckService } from '../../services/deck/deck-service';
+import { Deck } from '../../interfaces/deck';
+import { map, Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-deck-list',
@@ -11,18 +11,17 @@ import { map, Observable } from 'rxjs';
 export class DeckListComponent implements OnInit {
   decks$: Observable<Deck[]>;
   showAlert: boolean = false;
-  confirmId: number | null = null;
+  confirmId: null | string = null;
   deckName: string;
   message: string;
 
   constructor(private deckService: DeckService) { }
 
   ngOnInit(): void {
-    // this.deckService.createMockDecks();
     this.decks$ = this.deckService.getDecks();
   }
 
-  showConfirmation(id: number) {
+  showConfirmation(id: string) {
     this.showAlert = true;
     this.confirmId = id;
   }
@@ -32,8 +31,8 @@ export class DeckListComponent implements OnInit {
     this.confirmId = null;
   }
 
-  deleteDeck(id: number) {
-    this.deckService.removeDeck(id);
+  async deleteDeck(uid: string) {
+    await this.deckService.removeDeck(uid);
     this.hideConfirmation();
   }
 }
