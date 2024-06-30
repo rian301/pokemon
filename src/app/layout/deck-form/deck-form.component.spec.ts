@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DeckFormComponent } from './deck-form.component';
-import { DeckService } from '../../services/deck/deck-service';
+import { DeckService } from '../../services/deck/deck.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';

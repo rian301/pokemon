@@ -48,6 +48,6 @@
     (confirm)="deleteDeck(confirmId)"
     (cancel)="hideConfirmation()"
     title="Confirmação"
-    message="Tem certeza que deseja apagar o Deck?"
+    [message]="message"
   ></app-confirmation-alert>
 </div>

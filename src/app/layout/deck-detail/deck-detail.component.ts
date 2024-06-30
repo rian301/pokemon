@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Deck } from '../../interfaces/deck';
-import { DeckService } from '../../services/deck/deck-service';
+import { DeckService } from '../../services/deck/deck.service';
 import { take } from 'rxjs';
 
 @Component({
@@ -15,6 +15,7 @@ export class DeckDetailComponent implements OnInit {
   superTypes: number = 0;
   showAlert = false;
   confirmId: number | null = null;
+  message: string = "Tem certeza que deseja apagar o Deck?";
 
   constructor(
     private route: ActivatedRoute,

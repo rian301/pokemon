@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { GoogleAuthProvider } from "firebase/auth";
 import { localStorageKeys } from 'src/app/enums/localstorage.enum';
 import { UserInfo } from 'src/app/interfaces/user-info';
-import { DeckService } from '../deck/deck-service';
+import { DeckService } from '../deck/deck.service';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class AuthService {
 
 constructor(
   private afAuth: AngularFireAuth,
-  private router: Router, 
+  private router: Router,
   private deckService: DeckService) { }
 
   loginWithGoogle() {
@@ -53,7 +53,7 @@ constructor(
   async validateToken(): Promise<boolean> {
     const token = await firstValueFrom(this.afAuth.idToken)
     if (token) return true;
-    
+
     this.router.navigate(['/login']);
     return false;
   }

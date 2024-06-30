@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DeckDetailComponent } from './deck-detail.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DeckService } from '../../services/deck/deck-service';
+import { DeckService } from '../../services/deck/deck.service';
 import { of } from 'rxjs';
 import { Deck } from '../../interfaces/deck';
 import { RouterTestingModule } from '@angular/router/testing';

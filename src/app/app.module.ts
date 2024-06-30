@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DeckService } from './services/deck/deck-service';
+import { DeckService } from './services/deck/deck.service';
 import { AngularFireModule } from "@angular/fire/compat";
 
 const firebaseConfig = {
@@ -19,7 +19,7 @@ const firebaseConfig = {
 };
 
 @NgModule({
-  declarations: [	
+  declarations: [
     AppComponent,
    ],
   imports: [
@@ -28,7 +28,6 @@ const firebaseConfig = {
     HttpClientModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(firebaseConfig)
-    // IgxButtonModule
   ],
   providers: [DeckService],
   bootstrap: [AppComponent]

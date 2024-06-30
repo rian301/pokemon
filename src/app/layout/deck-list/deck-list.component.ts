@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DeckService } from '../../services/deck/deck-service';
+import { DeckService } from '../../services/deck/deck.service';
 import { Deck } from '../../interfaces/deck';
 import { map, Observable, tap } from 'rxjs';
 
@@ -13,7 +13,7 @@ export class DeckListComponent implements OnInit {
   showAlert: boolean = false;
   confirmId: null | string = null;
   deckName: string;
-  message: string;
+  message: string = "Tem certeza que deseja apagar o Deck?";
 
   constructor(private deckService: DeckService) { }
 

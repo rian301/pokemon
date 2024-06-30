@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { DeckService } from './deck-service';
+import { DeckService } from './deck.service';
 
 describe('DeckService', () => {
   let service: DeckService;

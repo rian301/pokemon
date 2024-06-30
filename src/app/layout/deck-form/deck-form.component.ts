@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Card } from '../../interfaces/card';
-import { DeckService } from '../../services/deck/deck-service';
+import { DeckService } from '../../services/deck/deck.service';
 import { take } from 'rxjs';
 
 @Component({
@@ -75,7 +75,7 @@ export class DeckFormComponent implements OnInit {
   }
 
   async saveDeck() {
-    if (this.deck.cards.length < 24 || this.deck.cards.length > 60) {
+    if (this.deck.cards.length < 1) {
       this.message = 'O Deck deve ter entre 24 e 60 cartas.'
       this.showConfirmation();
       return;
