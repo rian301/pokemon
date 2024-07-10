@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Card } from '../interfaces/card';
-import { DeckService } from '../services/deck-service';
-import { Deck } from '../interfaces/deck';
+import { Card } from '../../interfaces/card';
+import { DeckService } from '../../services/deck/deck.service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-deck-form',
@@ -10,7 +10,7 @@ import { Deck } from '../interfaces/deck';
   styleUrls: ['./deck-form.component.scss']
 })
 export class DeckFormComponent implements OnInit {
-  deck: Deck = { id: 0, name: '', cards: [] as Card[] };
+  deck = { id: 0, name: '', cards: [] as Card[], uid: '', userId: '' };
   allCards: Card[] = [];
   cardName: string = '';
   cardCount: number = 1;
@@ -84,8 +84,8 @@ export class DeckFormComponent implements OnInit {
       return;
     }
     if (this.isEditMode) {
-      this.deckService.updateDeck(this.deck);
-      this.router.navigate(['/']);
+      await this.deckService.updateDeck(this.deck, this.deck?.uid);
+      this.router.navigate(['/layout']);
     } else {
       await this.deckService.addDeck(this.deck);
       this.router.navigate(['/layout']);
