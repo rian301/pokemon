@@ -9,10 +9,10 @@ import { DeckService } from '../services/deck-service';
   styleUrls: ['./deck-detail.component.scss']
 })
 export class DeckDetailComponent implements OnInit {
-  deck: Deck | undefined;
+  deck: Deck;
   uniqueTypes: number = 0;
   superTypes: number = 0;
-  showAlert = false;
+  showAlert: boolean = false;
   confirmId: number | null = null;
 
   constructor(
@@ -21,11 +21,11 @@ export class DeckDetailComponent implements OnInit {
     private deckService: DeckService
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.getDeck();
   }
 
-  getDeck(): void {
+  getDeck() {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.deck = this.deckService.getDeckById(Number(id));
@@ -38,7 +38,7 @@ export class DeckDetailComponent implements OnInit {
     }
   }
 
-  calculateUniqueTypes(): void {
+  calculateUniqueTypes() {
     if (this.deck) {
       const typesSet = new Set<string>();
       this.deck.cards.forEach(card => {
@@ -50,7 +50,7 @@ export class DeckDetailComponent implements OnInit {
     }
   }
 
-  calculateSuperTypes(): void {
+  calculateSuperTypes() {
     if (this.deck) {
       const superTypesSet = new Set<string>();
       this.deck.cards.forEach(card => {

@@ -11,7 +11,7 @@ import { Card } from '../interfaces/card';
 export class DeckService {
   private decksSubject = new BehaviorSubject<Deck[]>([]);
   private decks: Deck[] = [];
-  private deckId = 1;
+  private deckId: number = 1;
 
   constructor(
 		private http: HttpClient
@@ -21,7 +21,7 @@ export class DeckService {
     return this.http.get<{ cards: Card[] }>('https://api.pokemontcg.io/v1/cards')
   }
 
-  getDecks() {
+  getDecks(): Observable<Deck[]> {
     return this.decksSubject.asObservable();
   }
 
@@ -44,7 +44,7 @@ export class DeckService {
     }
   }
 
-  getDeckById(id: number) {
+  getDeckById(id: number): Deck {
     return this.decks.find(deck => deck.id === id);
   }
 
