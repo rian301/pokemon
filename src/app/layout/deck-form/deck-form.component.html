@@ -2,7 +2,7 @@
   <h1 class="text-2xl font-bold mb-4 text-white">
     {{ isEditMode ? "Editar Deck" : "Criar Deck" }}
   </h1>
-  <form (ngSubmit)="saveDeck()" class="space-y-4">
+  <form *ngIf="deck" (ngSubmit)="saveDeck()" class="space-y-4">
     <div>
       <label for="deckName" class="block text-sm font-medium text-white"
         >Deck</label

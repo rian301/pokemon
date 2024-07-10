@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DeckService } from '../../services/deck/deck.service';
-import { Deck } from '../../interfaces/deck';
-import { map, Observable, tap } from 'rxjs';
+import { DeckService } from '../services/deck-service';
+import { Deck } from '../interfaces/deck';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-deck-list',

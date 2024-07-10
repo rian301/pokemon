@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { Card } from '../../interfaces/card';
-import { DeckService } from '../../services/deck/deck.service';
-import { take } from 'rxjs';
+import { Card } from '../interfaces/card';
+import { DeckService } from '../services/deck-service';
+import { Deck } from '../interfaces/deck';
 
 @Component({
   selector: 'app-deck-form',
@@ -11,20 +10,19 @@ import { take } from 'rxjs';
   styleUrls: ['./deck-form.component.scss']
 })
 export class DeckFormComponent implements OnInit {
-  deck = { id: 0, name: '', cards: [] as Card[], uid: '', userId: '' };
+  deck: Deck = { id: 0, name: '', cards: [] as Card[] };
   allCards: Card[] = [];
-  cardName = '';
-  cardCount = 1;
-  isEditMode = false;
+  cardName: string = '';
+  cardCount: number = 1;
+  isEditMode: boolean = false;
   largeImageUrl: string = '';
-  showAlert = false;
+  showAlert: boolean = false;
   message: string = '';
 
   constructor(
     private deckService: DeckService,
     private route: ActivatedRoute,
     private router: Router,
-    private http: HttpClient
   ) { }
 
   ngOnInit(): void {
@@ -86,8 +84,8 @@ export class DeckFormComponent implements OnInit {
       return;
     }
     if (this.isEditMode) {
-      await this.deckService.updateDeck(this.deck, this.deck?.uid);
-      this.router.navigate(['/layout']);
+      this.deckService.updateDeck(this.deck);
+      this.router.navigate(['/']);
     } else {
       await this.deckService.addDeck(this.deck);
       this.router.navigate(['/layout']);

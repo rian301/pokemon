@@ -1,5 +1,7 @@
 Projeto criado na versão 16 do Angular usando o Tailwind como estilo. Este projeto tem como finalidade listar os pokémons da API https://api.pokemontcg.io/v1/cards, possibilitando ao usuário criar e editar seus decks.
 
+O projeto tem duas branchs: master contendo apenas o solicitado no descritivo e firebase onde foi implementado o firebase com login do google e persistência dos dados.
+
 Funções:
 Listar
 Ver
