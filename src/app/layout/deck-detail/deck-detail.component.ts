@@ -14,8 +14,10 @@ export class DeckDetailComponent implements OnInit {
   uniqueTypes: number = 0;
   superTypes: number = 0;
   showAlert: boolean = false;
-  confirmId: number | null = null;
-  message: string = "Tem certeza que deseja apagar o Deck?";
+  confirmId: string | null = null;
+  message: string = "Tem certeza que deseja deletar o Deck?";
+  alertTitle: string = 'Confirmação';
+  alertIsAction: boolean = true; 
 
   constructor(
     private route: ActivatedRoute,
@@ -31,14 +33,23 @@ export class DeckDetailComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.deckService.getDeckById(Number(id))
-      .pipe(take(1)).subscribe(res => this.deck = res);
-      if (this.deck) {
-        this.calculateUniqueTypes();
-        this.calculateSuperTypes();
-      } else {
-        // Tratamento caso não encontre o deck com o ID fornecido
-      }
+      .pipe(take(1)).subscribe(res => {
+        this.deck = res
+        if (this.deck) {
+          this.calculateUniqueTypes();
+          this.calculateSuperTypes();
+        } else {
+          this.showAlertDeckNotFound(id);
+        }
+      });
     }
+  }
+
+  private showAlertDeckNotFound(id: string) {
+    this.alertTitle = 'Atenção!';
+    this.showAlert = true;
+    this.message = `Deck id ${id} não encontrado.`;
+    this.alertIsAction = false;
   }
 
   calculateUniqueTypes() {
@@ -66,26 +77,30 @@ export class DeckDetailComponent implements OnInit {
   }
 
   back(){
-    this.router.navigate(['/layout'])
+    this.router.navigate(['/layout']);
   }
 
   editDeck(id: number) {
     this.router.navigate([`/layout/edit-deck/${id}`])
   }
 
-  showConfirmation(id: number) {
+  showConfirmation(id: string) {
     this.showAlert = true;
     this.confirmId = id;
   }
 
   hideConfirmation() {
-    this.showAlert = false;
-    this.confirmId = null;
+    if (this.alertIsAction) {
+      this.showAlert = false;
+      this.confirmId = null;
+    } else {
+      this.back();
+    }
   }
 
-  deleteDeck(id: number) {
-  //  this.deckService.removeDeck(id);
-  //  this.hideConfirmation();
-  //  this.router.navigate(['/layout'])
+  deleteDeck(id: string) {
+   this.deckService.removeDeck(id);
+   this.hideConfirmation();
+   this.back();
  }
 }

@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 @Component({
   selector: 'app-confirmation-alert',
   templateUrl: './confirmation-alert.component.html',
-  styleUrls: ['./confirmation-alert.component.css']
+  styleUrls: ['./confirmation-alert.component.scss']
 })
 export class ConfirmationAlertComponent {
 

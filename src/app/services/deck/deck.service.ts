@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map, tap } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { Deck } from '../../interfaces/deck';
 import { HttpClient } from '@angular/common/http';
 import { Card } from '../../interfaces/card';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { localStorageKeys } from 'src/app/enums/localstorage.enum';
+import { UserInfo } from 'src/app/interfaces/user-info';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class DeckService {
-  private decksSubject = new BehaviorSubject<Deck[]>([]);
   private decks: Deck[] = [];
 
   constructor(
@@ -39,7 +39,7 @@ export class DeckService {
     return this.firestore.collection('decks').doc(uid).delete();
   }
 
-  updateDeck(updatedDeck: Deck, uid: string) {
+  updateDeck(updatedDeck: Deck, uid: string): Promise<void> {
     return this.firestore.collection('decks').doc(uid).update(updatedDeck);
   }
 
@@ -87,20 +87,20 @@ export class DeckService {
     ];
 
     // Adiciona os decks mockados ao array principal e atualiza o BehaviorSubject
-    const promises: any[] = [];
+    const promises: Promise<void>[] = [];
     mockDecks.forEach(deck => {
       promises.push(this.addDeck(deck, true))
     });
     await Promise.all(promises);
   }
 
-  private getNextDeckId(): Promise<number> {
+  private async getNextDeckId(): Promise<number> {
     return this.firestore.collection('decks').get().toPromise()
       .then(snapshot => snapshot.size + 1);
   }
 
-  private getUserId() {
-    const user = JSON.parse(localStorage.getItem(localStorageKeys['user']));
+  private getUserId(): string {
+    const user: UserInfo = JSON.parse(localStorage.getItem(localStorageKeys['user']));
     return user?.id;
   }
 }

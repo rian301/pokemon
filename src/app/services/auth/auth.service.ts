@@ -6,6 +6,7 @@ import { localStorageKeys } from 'src/app/enums/localstorage.enum';
 import { UserInfo } from 'src/app/interfaces/user-info';
 import { DeckService } from '../deck/deck.service';
 import { firstValueFrom } from 'rxjs';
+import firebase from 'firebase/compat/app';
 
 @Injectable({
   providedIn: 'root'
@@ -27,13 +28,13 @@ constructor(
       });
   }
 
-  private async getCredentialsAndSetToken(userCredential: any) {
+  private async getCredentialsAndSetToken(userCredential: firebase.auth.UserCredential) {
     const { additionalUserInfo } = userCredential;
-    const firebaseUser = userCredential.user?.multiFactor?.user;
+    const firebaseUser = userCredential.user;
       const user = {
         id: firebaseUser?.uid,
         email: firebaseUser?.email,
-        accessToken: firebaseUser?.accessToken,
+        accessToken: await firebaseUser.getIdToken(),
       }
       this.setToken(user);
       if (additionalUserInfo?.isNewUser) {
